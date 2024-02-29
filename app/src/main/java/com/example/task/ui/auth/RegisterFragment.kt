@@ -7,17 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.task.R
 import com.example.task.databinding.FragmentLoginBinding
-import com.example.task.databinding.FragmentSplashBinding
+import com.example.task.databinding.FragmentRegisterBinding
 
-class LoginFragment : Fragment() {
-    private var _binding: FragmentLoginBinding? = null
+
+class RegisterFragment : Fragment() {
+
+    private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -26,5 +28,6 @@ class LoginFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 
 }
