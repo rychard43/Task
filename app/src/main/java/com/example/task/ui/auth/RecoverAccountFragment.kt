@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.task.R
 import com.example.task.databinding.FragmentLoginBinding
 import com.example.task.databinding.FragmentRecoverAccountBinding
@@ -26,6 +28,24 @@ class RecoverAccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar(binding.toolbar)
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.buttonRecoverAccount.setOnClickListener {
+            validateData()
+        }
+    }
+
+    private fun validateData(): Boolean {
+        val email = binding.editTextEmail.text.toString()
+        var isValid = true
+        if (email.isEmpty()) {
+            binding.editTextEmail.error = getString(R.string.email_obrigatorio)
+            Toast.makeText(context, getString(R.string.email_obrigatorio), Toast.LENGTH_LONG).show()
+            isValid = false
+        }
+        return isValid
     }
 
     override fun onDestroyView() {

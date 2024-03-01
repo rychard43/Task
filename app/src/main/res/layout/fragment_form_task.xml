@@ -49,7 +49,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/editTextDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -70,7 +70,7 @@
                 android:text="@string/status"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextDescription" />
 
             <RadioGroup
                 android:id="@+id/radioGroup"
@@ -89,6 +89,7 @@
                     android:layout_weight="1"
                     android:text="@string/status_task_todo"
                     android:textColor="@color/white"
+                    android:checked="true"
                     app:buttonTint="@color/white" />
 
 
@@ -114,7 +115,7 @@
             </RadioGroup>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/buttonLogin"
+                android:id="@+id/buttonSalvar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -136,7 +137,7 @@
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+                app:layout_constraintTop_toBottomOf="@+id/buttonSalvar"
                 tools:visibility="visible" />
 
 

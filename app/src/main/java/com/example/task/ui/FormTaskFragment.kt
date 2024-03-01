@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.task.R
 import com.example.task.databinding.FragmentFormTaskBinding
-import com.example.task.databinding.FragmentRegisterBinding
 import com.example.task.utils.initToolbar
 
 class FormTaskFragment : Fragment() {
@@ -26,6 +26,25 @@ class FormTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar(binding.toolbar)
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.buttonSalvar.setOnClickListener {
+            validateData()
+        }
+    }
+
+    private fun validateData(): Boolean {
+        val descricao = binding.editTextDescription.text.toString()
+        var isValid = true
+        if (descricao.isEmpty()) {
+            binding.editTextDescription.error = getString(R.string.descricao_obrigatorio)
+            Toast.makeText(context, getString(R.string.descricao_obrigatorio), Toast.LENGTH_LONG)
+                .show()
+            isValid = false
+        }
+        return isValid
     }
 
 
