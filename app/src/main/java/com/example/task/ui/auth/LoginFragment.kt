@@ -32,6 +32,7 @@ class LoginFragment : Fragment() {
     private fun initListeners() {
         binding.buttonCreateAccount.setOnClickListener { goToCreateAccount() }
         binding.buttonRecoverAccount.setOnClickListener { goToRecoverAccount() }
+        binding.buttonLogin.setOnClickListener { goToHome() }
     }
 
     private fun goToCreateAccount() {
@@ -42,6 +43,9 @@ class LoginFragment : Fragment() {
         findNavController().navigate(R.id.action_loginFragment_to_recoverAccountFragment)
     }
 
+    private fun goToHome() {
+        findNavController().navigate(R.id.action_global_homeFragment)
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
