@@ -3,19 +3,24 @@
     <string name="email">E-mail</string>
     <string name="senha">Senha</string>
     <string name="login">Login</string>
+    <string name="status">Status</string>
+    <string name="salvar">Salvar</string>
+    <string name="descricao">Descrição</string>
     <string name="digite_email">Digite seu email</string>
     <string name="digite_senha">Digite sua senha</string>
     <string name="criar_conta">Criar conta</string>
     <string name="recuperar_conta">Recuperar conta</string>
+    <string name="descricao_hint_input">Exemplo: estudar materia</string>
     <string name="informe_email_cadastrado">Informe seu email de cadastro para receber \num link para redefinir sua senha.</string>
 
+
+    <string name="description_botao_add_tarefa">Botão add nova tarefa</string>
 
     <string name="status_task_todo">A Fazer</string>
     <string name="status_task_doing">Fazendo</string>
     <string name="status_task_done">Feito</string>
-
-
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
