@@ -8,6 +8,9 @@
     <string name="entendi">Entendi</string>
     <string name="descricao">Descrição</string>
     <string name="atencao">Atenção</string>
+    <string name="remover">Remover</string>
+    <string name="editar">Editar</string>
+    <string name="detalhes">Detalhes</string>
     <string name="digite_email">Digite seu email</string>
     <string name="digite_senha">Digite sua senha</string>
     <string name="criar_conta">Criar conta</string>
