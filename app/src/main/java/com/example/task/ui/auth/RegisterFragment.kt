@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.example.task.R
-import com.example.task.databinding.FragmentLoginBinding
 import com.example.task.databinding.FragmentRegisterBinding
 import com.example.task.utils.initToolbar
+import com.example.task.utils.showBottomSheet
 
 
 class RegisterFragment : Fragment() {
@@ -49,12 +49,12 @@ class RegisterFragment : Fragment() {
 
         if (email.isEmpty()) {
             binding.editTextEmail.error = getString(R.string.email_obrigatorio)
-            Toast.makeText(context, getString(R.string.email_obrigatorio), Toast.LENGTH_LONG).show()
+            showBottomSheet(message = R.string.email_obrigatorio)
             isValid = false
         }
         if (password.isEmpty()) {
             binding.editTextPassword.error = getString(R.string.senha_obrigatorio)
-            Toast.makeText(context, getString(R.string.senha_obrigatorio), Toast.LENGTH_LONG).show()
+            showBottomSheet(message = R.string.senha_obrigatorio)
             isValid = false
         }
 

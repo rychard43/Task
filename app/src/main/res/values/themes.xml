@@ -1,18 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.Task" parent="Base.Theme.Task" />
     <!-- Base application theme. -->
     <style name="Base.Theme.Task" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="elevationOverlayEnabled">false</item>
         <item name="android:windowBackground">@color/color_default</item>
         <item name="colorPrimaryVariant">@color/color_default</item>
         <item name="android:statusBarColor">@color/color_default</item>
         <item name="colorPrimary">@color/color_default</item>
     </style>
 
-    <style name="Theme.Task" parent="Base.Theme.Task" />
-
     <style name="CustomTabLayout" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetStyleWrapper</item>
+    </style>
+    <style name="bottomSheetStyleWrapper" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
     </style>
 </resources>

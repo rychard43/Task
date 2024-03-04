@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.task.R
 import com.example.task.databinding.FragmentFormTaskBinding
 import com.example.task.utils.initToolbar
+import com.example.task.utils.showBottomSheet
 
 class FormTaskFragment : Fragment() {
 
@@ -40,8 +41,7 @@ class FormTaskFragment : Fragment() {
         var isValid = true
         if (descricao.isEmpty()) {
             binding.editTextDescription.error = getString(R.string.descricao_obrigatorio)
-            Toast.makeText(context, getString(R.string.descricao_obrigatorio), Toast.LENGTH_LONG)
-                .show()
+            showBottomSheet(message = R.string.descricao_obrigatorio)
             isValid = false
         }
         return isValid

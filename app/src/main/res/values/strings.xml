@@ -5,7 +5,9 @@
     <string name="login">Login</string>
     <string name="status">Status</string>
     <string name="salvar">Salvar</string>
+    <string name="entendi">Entendi</string>
     <string name="descricao">Descrição</string>
+    <string name="atencao">Atenção</string>
     <string name="digite_email">Digite seu email</string>
     <string name="digite_senha">Digite sua senha</string>
     <string name="criar_conta">Criar conta</string>
