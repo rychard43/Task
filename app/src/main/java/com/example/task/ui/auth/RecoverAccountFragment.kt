@@ -40,7 +40,7 @@ class RecoverAccountFragment : Fragment() {
         var isValid = true
         if (email.isEmpty()) {
             binding.editTextEmail.error = getString(R.string.email_obrigatorio)
-            showBottomSheet(message = R.string.email_obrigatorio)
+            showBottomSheet(message = getString(R.string.email_obrigatorio))
             isValid = false
         }
         return isValid

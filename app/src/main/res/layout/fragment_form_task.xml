@@ -50,14 +50,13 @@
 
             <EditText
                 android:id="@+id/editTextDescription"
+                style="@style/EditTextTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/background_edit_text"
                 android:hint="@string/descricao_hint_input"
                 android:importantForAutofill="no"
                 android:inputType="text"
-                android:padding="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -87,9 +86,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:checked="true"
                     android:text="@string/status_task_todo"
                     android:textColor="@color/white"
-                    android:checked="true"
                     app:buttonTint="@color/white" />
 
 
@@ -116,13 +115,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonSalvar"
+                style="@style/ButtonTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/background_button"
                 android:text="@string/salvar"
-                android:textColor="@color/color_default"
-                app:backgroundTint="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroup" />

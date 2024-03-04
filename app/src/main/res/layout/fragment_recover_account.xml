@@ -39,8 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="24dp"
-            android:orientation="vertical"
             android:layout_marginTop="16dp"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.125"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,24 +62,21 @@
 
             <EditText
                 android:id="@+id/editTextEmail"
+                style="@style/EditTextTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:background="@drawable/background_edit_text"
                 android:hint="@string/digite_email"
                 android:importantForAutofill="no"
-                android:inputType="textEmailAddress"
-                android:padding="16dp" />
+                android:inputType="textEmailAddress" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/buttonRecoverAccount"
+                style="@style/ButtonTheme"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/background_button"
-                android:text="@string/recuperar_conta"
-                android:textColor="@color/color_default"
-                app:backgroundTint="@null" />
+                android:text="@string/recuperar_conta" />
 
             <ProgressBar
                 android:id="@+id/progressBar"

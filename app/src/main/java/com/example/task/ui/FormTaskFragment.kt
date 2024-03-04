@@ -41,7 +41,7 @@ class FormTaskFragment : Fragment() {
         var isValid = true
         if (descricao.isEmpty()) {
             binding.editTextDescription.error = getString(R.string.descricao_obrigatorio)
-            showBottomSheet(message = R.string.descricao_obrigatorio)
+            showBottomSheet(message = getString(R.string.descricao_obrigatorio))
             isValid = false
         }
         return isValid
