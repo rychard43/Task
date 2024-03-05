@@ -36,7 +36,8 @@ class TodoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initListeners()
-        initRecyclerViewTask(getTask())
+        initRecyclerViewTask()
+        getTask()
     }
 
     private fun initListeners() {
@@ -45,34 +46,39 @@ class TodoFragment : Fragment() {
         }
     }
 
-    private fun initRecyclerViewTask(taskList: List<Task>) {
+    private fun initRecyclerViewTask() {
         taskAdapter =
-            TaskAdapter(requireContext(), taskList) { task, option ->
+            TaskAdapter(requireContext()) { task, option ->
                 taskAdapter.optionSelected(
                     task,
                     option
                 )
             }
-        binding.rvTasks.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvTasks.setHasFixedSize(true)
-        binding.rvTasks.adapter = taskAdapter
+
+        with(binding.rvTasks) {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            adapter = taskAdapter
+        }
     }
-
-
-    private fun getTask() = listOf(
-        Task("0", "Criar nova tela", StatusTask.TODO),
-        Task("1", "Criar nova pagina", StatusTask.TODO),
-        Task("2", "Salvar task", StatusTask.TODO),
-        Task("3", "Remover task", StatusTask.TODO),
-        Task("4", "Alterar task", StatusTask.TODO),
-        Task("5", "Listar task", StatusTask.TODO),
-        Task("6", "Criar nova tela", StatusTask.TODO),
-        Task("7", "Criar nova pagina", StatusTask.TODO),
-        Task("8", "Salvar task", StatusTask.TODO),
-        Task("9", "Remover task", StatusTask.TODO),
-        Task("10", "Alterar task", StatusTask.TODO),
-        Task("11", "Listar task", StatusTask.TODO),
-    )
+    private fun getTask() {
+        taskAdapter.submitList(
+            listOf(
+                Task("0", "Criar nova tela", StatusTask.TODO),
+                Task("1", "Criar nova pagina", StatusTask.TODO),
+                Task("2", "Salvar task", StatusTask.TODO),
+                Task("3", "Remover task", StatusTask.TODO),
+                Task("4", "Alterar task", StatusTask.TODO),
+                Task("5", "Listar task", StatusTask.TODO),
+                Task("6", "Criar nova tela", StatusTask.TODO),
+                Task("7", "Criar nova pagina", StatusTask.TODO),
+                Task("8", "Salvar task", StatusTask.TODO),
+                Task("9", "Remover task", StatusTask.TODO),
+                Task("10", "Alterar task", StatusTask.TODO),
+                Task("11", "Listar task", StatusTask.TODO),
+            )
+        )
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

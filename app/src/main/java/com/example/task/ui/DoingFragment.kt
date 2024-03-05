@@ -29,38 +29,44 @@ class DoingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initRecyclerViewTask(getTask())
+        initRecyclerViewTask()
+        getTask()
     }
 
 
-    private fun initRecyclerViewTask(taskList: List<Task>) {
+    private fun initRecyclerViewTask() {
         taskAdapter =
-            TaskAdapter(requireContext(), taskList) { task, option ->
+            TaskAdapter(requireContext()) { task, option ->
                 taskAdapter.optionSelected(
                     task,
                     option
                 )
             }
-        binding.rvTasks.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvTasks.setHasFixedSize(true)
-        binding.rvTasks.adapter = taskAdapter
+
+        with(binding.rvTasks) {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            adapter = taskAdapter
+        }
     }
-
-
-    private fun getTask() = listOf(
-        Task("0", "Criar nova tela", StatusTask.DOING),
-        Task("1", "Criar nova pagina", StatusTask.DOING),
-        Task("2", "Salvar task", StatusTask.DOING),
-        Task("3", "Remover task", StatusTask.DOING),
-        Task("4", "Alterar task", StatusTask.DOING),
-        Task("5", "Listar task", StatusTask.DOING),
-        Task("6", "Criar nova tela", StatusTask.DOING),
-        Task("7", "Criar nova pagina", StatusTask.DOING),
-        Task("8", "Salvar task", StatusTask.DOING),
-        Task("9", "Remover task", StatusTask.DOING),
-        Task("10", "Alterar task", StatusTask.DOING),
-        Task("11", "Listar task", StatusTask.DOING),
-    )
+    private fun getTask() {
+        taskAdapter.submitList(
+            listOf(
+                Task("0", "Criar nova tela", StatusTask.DOING),
+                Task("1", "Criar nova pagina", StatusTask.DOING),
+                Task("2", "Salvar task", StatusTask.DOING),
+                Task("3", "Remover task", StatusTask.DOING),
+                Task("4", "Alterar task", StatusTask.DOING),
+                Task("5", "Listar task", StatusTask.DOING),
+                Task("6", "Criar nova tela", StatusTask.DOING),
+                Task("7", "Criar nova pagina", StatusTask.DOING),
+                Task("8", "Salvar task", StatusTask.DOING),
+                Task("9", "Remover task", StatusTask.DOING),
+                Task("10", "Alterar task", StatusTask.DOING),
+                Task("11", "Listar task", StatusTask.DOING),
+            )
+        )
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

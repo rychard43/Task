@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.task.R
 import com.example.task.data.model.StatusTask
@@ -14,9 +16,8 @@ import com.example.task.databinding.ItemTaskBinding
 
 class TaskAdapter(
     private val context: Context,
-    private val taskList: List<Task>,
     private val taskSelected: (Task, Int) -> Unit
-) : RecyclerView.Adapter<TaskAdapter.MyViewHolder>() {
+) : ListAdapter<Task, TaskAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         const val SELECTED_BACK: Int = 1
@@ -24,6 +25,16 @@ class TaskAdapter(
         const val SELECTED_REMOVE: Int = 3
         const val SELECTED_DETAILS: Int = 4
         const val SELECTED_EDIT: Int = 5
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Task>() {
+            override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
+                return oldItem.id == newItem.id && oldItem.description == newItem.description
+            }
+
+            override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
+                return oldItem == newItem && oldItem.description == newItem.description
+            }
+        }
     }
 
     fun optionSelected(task: Task, option: Int) {
@@ -63,7 +74,7 @@ class TaskAdapter(
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val task = taskList[position]
+        val task = getItem(position)
         holder.binding.textDescriptionCard.text = task.description
         setIndicators(task, holder)
         holder.binding.buttonRemove.setOnClickListener {
@@ -117,8 +128,6 @@ class TaskAdapter(
         }
 
     }
-
-    override fun getItemCount() = taskList.size
 
     inner class MyViewHolder(val binding: ItemTaskBinding) : RecyclerView.ViewHolder(binding.root)
 
