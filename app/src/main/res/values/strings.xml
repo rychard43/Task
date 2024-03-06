@@ -24,6 +24,7 @@
     <string name="descricao_obrigatorio">Descricao obrigatoria</string>
     <string name="descricao_hint_input">Exemplo: estudar materia</string>
     <string name="erro_registrar">Erro ao registrar o usuário</string>
+    <string name="erro_logar">Erro ao logar o usuário</string>
     <string name="informe_email_cadastrado">Informe seu email de cadastro para receber \num link para redefinir sua senha.</string>
 
 
