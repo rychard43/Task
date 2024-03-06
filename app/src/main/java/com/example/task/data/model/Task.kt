@@ -11,7 +11,7 @@ enum class StatusTask {
 
 @Parcelize
 data class Task(
-    val id: String,
-    val description: String,
-    val status: StatusTask
+    var id: String = "",
+    var description: String = "",
+    var status: StatusTask = StatusTask.TODO
 ) : Parcelable
