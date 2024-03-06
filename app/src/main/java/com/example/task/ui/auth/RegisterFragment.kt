@@ -13,7 +13,6 @@ import com.example.task.databinding.FragmentRegisterBinding
 import com.example.task.utils.initToolbar
 import com.example.task.utils.showBottomSheet
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.auth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
