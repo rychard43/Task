@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task.R
 import com.example.task.adapter.TaskAdapter
+import com.example.task.data.model.StatusTask
 import com.example.task.data.model.Task
 import com.example.task.databinding.FragmentTodoBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -81,8 +83,12 @@ class TodoFragment : Fragment() {
                     val taskList = mutableListOf<Task>()
                     snapshot.children.forEach { taskFirebase ->
                         val task = taskFirebase.getValue(Task::class.java) as Task
-                        taskList.add(task)
+                        if(task.status == StatusTask.TODO){
+                            taskList.add(task)
+                        }
                     }
+                    binding.progressBar.isVisible = false
+                    listEmpty(taskList)
                     taskAdapter.submitList(taskList)
                 }
 
@@ -95,6 +101,10 @@ class TodoFragment : Fragment() {
                 }
 
             })
+    }
+
+    private fun listEmpty(taskList: List<Task>) {
+        binding.textViewLoading.text = if (taskList.isEmpty()) getString(R.string.sem_task) else ""
     }
 
     override fun onDestroyView() {
