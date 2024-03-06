@@ -11,6 +11,9 @@
     <string name="remover">Remover</string>
     <string name="editar">Editar</string>
     <string name="detalhes">Detalhes</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="deseja_sair">Deseja sair da sua conta?</string>
+    <string name="aperte_confirmar">Aperte confirmar para sair da conta.</string>
     <string name="digite_email">Digite seu email</string>
     <string name="digite_senha">Digite sua senha</string>
     <string name="criar_conta">Criar conta</string>
