@@ -10,9 +10,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.task.R
 import com.example.task.adapter.TaskAdapter
-import com.example.task.data.model.StatusTask
 import com.example.task.data.model.Task
 import com.example.task.databinding.FragmentTodoBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 
 class TodoFragment : Fragment() {
@@ -22,6 +29,8 @@ class TodoFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var taskAdapter: TaskAdapter
+    private lateinit var reference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +43,8 @@ class TodoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        reference = Firebase.database.reference
+        auth = Firebase.auth
         initListeners()
         initRecyclerViewTask()
         getTask()
@@ -61,23 +71,30 @@ class TodoFragment : Fragment() {
             adapter = taskAdapter
         }
     }
+
     private fun getTask() {
-        taskAdapter.submitList(
-            listOf(
-                Task("0", "Criar nova tela", StatusTask.TODO),
-                Task("1", "Criar nova pagina", StatusTask.TODO),
-                Task("2", "Salvar task", StatusTask.TODO),
-                Task("3", "Remover task", StatusTask.TODO),
-                Task("4", "Alterar task", StatusTask.TODO),
-                Task("5", "Listar task", StatusTask.TODO),
-                Task("6", "Criar nova tela", StatusTask.TODO),
-                Task("7", "Criar nova pagina", StatusTask.TODO),
-                Task("8", "Salvar task", StatusTask.TODO),
-                Task("9", "Remover task", StatusTask.TODO),
-                Task("10", "Alterar task", StatusTask.TODO),
-                Task("11", "Listar task", StatusTask.TODO),
-            )
-        )
+        reference
+            .child("tasks")
+            .child(auth.currentUser?.uid ?: "")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val taskList = mutableListOf<Task>()
+                    snapshot.children.forEach { taskFirebase ->
+                        val task = taskFirebase.getValue(Task::class.java) as Task
+                        taskList.add(task)
+                    }
+                    taskAdapter.submitList(taskList)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.erro_generico) + ": " + error.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            })
     }
 
     override fun onDestroyView() {
