@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
             showBottomSheet(
                 titleButton = getString(R.string.confirmar),
                 titleDialog = getString(R.string.deseja_sair),
-                message = getString(R.string.aperte_confirmar),
+                message = getString(R.string.aperte_confirmar_sair_conta),
                 onClick = {
                     auth.signOut()
                     findNavController().navigate(R.id.action_homeFragment_to_authentication)

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,7 @@ import com.example.task.R
 import com.example.task.data.model.StatusTask
 import com.example.task.data.model.Task
 import com.example.task.databinding.ItemTaskBinding
+import com.example.task.utils.showBottomSheet
 
 class TaskAdapter(
     private val context: Context,
@@ -37,26 +39,36 @@ class TaskAdapter(
         }
     }
 
-    fun optionSelected(task: Task, option: Int) {
+    fun optionSelected(task: Task, option: Int, callback: (task: Task) -> Unit,fragment: Fragment) {
         when (option) {
             SELECTED_BACK -> {
                 Toast.makeText(context, "Back " + task.description, Toast.LENGTH_SHORT).show()
             }
 
             SELECTED_REMOVE -> {
-                Toast.makeText(context, "Remove " + task.description, Toast.LENGTH_SHORT).show()
+                fragment.showBottomSheet(
+                    titleDialog = fragment.getString(R.string.deseja_remover),
+                    titleButton = fragment.getString(R.string.confirmar),
+                    message = fragment.getString(R.string.aperte_confirmar_remover_tarefa),
+                    onClick ={
+                        callback(task)
+                    }
+                )
             }
 
             SELECTED_DETAILS -> {
                 Toast.makeText(context, "Details " + task.description, Toast.LENGTH_SHORT).show()
+
             }
 
             SELECTED_EDIT -> {
                 Toast.makeText(context, "Edit " + task.description, Toast.LENGTH_SHORT).show()
+
             }
 
             SELECTED_NEXT -> {
                 Toast.makeText(context, "Next " + task.description, Toast.LENGTH_SHORT).show()
+
             }
         }
     }

@@ -39,7 +39,9 @@ class DoingFragment : Fragment() {
             TaskAdapter(requireContext()) { task, option ->
                 taskAdapter.optionSelected(
                     task,
-                    option
+                    option,
+                    callback = {},
+                    this
                 )
             }
 
@@ -49,6 +51,7 @@ class DoingFragment : Fragment() {
             adapter = taskAdapter
         }
     }
+
     private fun getTask() {
         taskAdapter.submitList(
             listOf(

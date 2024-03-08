@@ -14,6 +14,7 @@ import com.example.task.adapter.TaskAdapter
 import com.example.task.data.model.StatusTask
 import com.example.task.data.model.Task
 import com.example.task.databinding.FragmentTodoBinding
+import com.example.task.utils.showBottomSheet
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -63,7 +64,11 @@ class TodoFragment : Fragment() {
             TaskAdapter(requireContext()) { task, option ->
                 taskAdapter.optionSelected(
                     task,
-                    option
+                    option,
+                    callback = {
+                        callOption(option = option, task = task)
+                    },
+                    this
                 )
             }
 
@@ -83,12 +88,13 @@ class TodoFragment : Fragment() {
                     val taskList = mutableListOf<Task>()
                     snapshot.children.forEach { taskFirebase ->
                         val task = taskFirebase.getValue(Task::class.java) as Task
-                        if(task.status == StatusTask.TODO){
+                        if (task.status == StatusTask.TODO) {
                             taskList.add(task)
                         }
                     }
                     binding.progressBar.isVisible = false
                     listEmpty(taskList)
+                    taskList.reverse()
                     taskAdapter.submitList(taskList)
                 }
 
@@ -101,6 +107,51 @@ class TodoFragment : Fragment() {
                 }
 
             })
+    }
+
+    private fun callOption(option: Int, task: Task) {
+        when (option) {
+            TaskAdapter.SELECTED_REMOVE -> {
+                deleteTask(task)
+            }
+
+            TaskAdapter.SELECTED_DETAILS -> {
+
+            }
+
+            TaskAdapter.SELECTED_EDIT -> {
+            }
+
+            TaskAdapter.SELECTED_NEXT -> {
+
+            }
+
+            TaskAdapter.SELECTED_BACK -> {
+
+            }
+        }
+    }
+
+    private fun deleteTask(task: Task) {
+        reference
+            .child("tasks")
+            .child(auth.currentUser?.uid ?: "")
+            .child(task.id)
+            .removeValue().addOnCompleteListener { result ->
+                if (result.isSuccessful) {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.removeu_task),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.erro_generico) + ": " + result.exception?.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
     }
 
     private fun listEmpty(taskList: List<Task>) {
