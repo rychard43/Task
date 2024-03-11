@@ -47,7 +47,7 @@ class TaskAdapter(
     ) {
         when (option) {
             SELECTED_BACK -> {
-                Toast.makeText(context, "Back " + task.description, Toast.LENGTH_SHORT).show()
+                callback(task)
             }
 
             SELECTED_REMOVE -> {
@@ -71,8 +71,7 @@ class TaskAdapter(
             }
 
             SELECTED_NEXT -> {
-                Toast.makeText(context, "Next " + task.description, Toast.LENGTH_SHORT).show()
-
+                callback(task)
             }
         }
     }

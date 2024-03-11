@@ -1,12 +1,13 @@
 package com.example.task.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -110,7 +111,7 @@ class TodoFragment : Fragment() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    showToast(getString(R.string.erro_generico) + ": " + error.message)
+                   Log.i("INFOTESTE","onCancelled")
                 }
 
             })
@@ -119,7 +120,7 @@ class TodoFragment : Fragment() {
     private fun callOption(option: Int, task: Task) {
         when (option) {
             TaskAdapter.SELECTED_REMOVE -> {
-                deleteTask(task)
+                FirebaseHelper.deleteTask(task,this)
             }
 
             TaskAdapter.SELECTED_DETAILS -> {
@@ -132,27 +133,14 @@ class TodoFragment : Fragment() {
             }
 
             TaskAdapter.SELECTED_NEXT -> {
-
+                task.status = StatusTask.DOING
+                FirebaseHelper.updateTask(task,this)
             }
 
             TaskAdapter.SELECTED_BACK -> {
 
             }
         }
-    }
-
-    private fun deleteTask(task: Task) {
-        FirebaseHelper.getDatabaseReference()
-            .child("tasks")
-            .child(FirebaseHelper.getIdUser())
-            .child(task.id)
-            .removeValue().addOnCompleteListener { result ->
-                if (result.isSuccessful) {
-                    showToast(getString(R.string.removeu_task))
-                } else {
-                    showToast(getString(R.string.erro_generico) + ": " + result.exception?.message)
-                }
-            }
     }
 
     private fun showToast(message: String) {

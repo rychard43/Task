@@ -1,7 +1,6 @@
 package com.example.task.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,7 @@ import com.example.task.utils.FirebaseHelper
 import com.example.task.utils.initToolbar
 import com.example.task.utils.showBottomSheet
 
-class FormTaskFragment : Fragment() {
+class FormTaskFragment : BaseFragment() {
 
     private var _binding: FragmentFormTaskBinding? = null
     private val binding get() = _binding!!
@@ -91,6 +90,7 @@ class FormTaskFragment : Fragment() {
             binding.editTextDescription.error = getString(R.string.descricao_obrigatorio)
             showBottomSheet(message = getString(R.string.descricao_obrigatorio))
         } else {
+            hideKeyboard()
             binding.progressBar.isVisible = true
             if (isNewTask) {
                 task = Task()
