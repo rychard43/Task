@@ -10,8 +10,10 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.example.task.R
 import com.example.task.databinding.FragmentLoginBinding
+import com.example.task.utils.FirebaseHelper
 import com.example.task.utils.showBottomSheet
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

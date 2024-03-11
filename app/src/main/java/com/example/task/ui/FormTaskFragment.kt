@@ -14,13 +14,9 @@ import com.example.task.R
 import com.example.task.data.model.StatusTask
 import com.example.task.data.model.Task
 import com.example.task.databinding.FragmentFormTaskBinding
+import com.example.task.utils.FirebaseHelper
 import com.example.task.utils.initToolbar
 import com.example.task.utils.showBottomSheet
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class FormTaskFragment : Fragment() {
 
@@ -29,8 +25,6 @@ class FormTaskFragment : Fragment() {
     private lateinit var task: Task
     private var statusTask: StatusTask = StatusTask.TODO
     private var isNewTask = true
-    private lateinit var reference: DatabaseReference
-    private lateinit var auth: FirebaseAuth
 
     private val args: FormTaskFragmentArgs by navArgs()
     private val viewModel: TaskViewModel by activityViewModels()
@@ -46,8 +40,6 @@ class FormTaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        reference = Firebase.database.reference
-        auth = Firebase.auth
         initToolbar(binding.toolbar)
         getArgs()
         initListeners()
@@ -102,7 +94,6 @@ class FormTaskFragment : Fragment() {
             binding.progressBar.isVisible = true
             if (isNewTask) {
                 task = Task()
-                task.id = reference.database.reference.push().key ?: ""
             }
             task.description = descricao
             task.status = statusTask
@@ -111,9 +102,9 @@ class FormTaskFragment : Fragment() {
     }
 
     private fun saveTask() {
-        reference
+        FirebaseHelper.getDatabaseReference()
             .child("tasks")
-            .child(auth.currentUser?.uid ?: "")
+            .child(FirebaseHelper.getIdUser())
             .child(task.id)
             .setValue(task).addOnCompleteListener { result ->
                 if (result.isSuccessful) {
