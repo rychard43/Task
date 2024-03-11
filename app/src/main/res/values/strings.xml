@@ -13,6 +13,7 @@
     <string name="detalhes">Detalhes</string>
     <string name="confirmar">Confirmar</string>
     <string name="deseja_sair">Deseja sair da sua conta?</string>
+    <string name="editando_task">Editando Tarefa</string>
     <string name="aperte_confirmar_sair_conta">Aperte confirmar para sair da conta.</string>
     <string name="digite_email">Digite seu email</string>
     <string name="digite_senha">Digite sua senha</string>
@@ -33,6 +34,7 @@
     <string name="aperte_confirmar_remover_tarefa">Aperte confirmar para remover tarefa</string>
     <string name="carregando_task">Aguarde! Carregando as tarefas…</string>
     <string name="salvo_sucesso">Tarefa salva com sucesso!</string>
+    <string name="atualizada_sucesso">Tarefa atualizada com sucesso!</string>
     <string name="enviou_link_recuperacao">Enviei um link para redefinir sua senha.</string>
     <string name="informe_email_cadastrado">Informe seu email de cadastro para receber \num link para redefinir sua senha.</string>
 

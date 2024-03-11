@@ -39,7 +39,12 @@ class TaskAdapter(
         }
     }
 
-    fun optionSelected(task: Task, option: Int, callback: (task: Task) -> Unit,fragment: Fragment) {
+    fun optionSelected(
+        task: Task,
+        option: Int,
+        callback: (task: Task) -> Unit,
+        fragment: Fragment
+    ) {
         when (option) {
             SELECTED_BACK -> {
                 Toast.makeText(context, "Back " + task.description, Toast.LENGTH_SHORT).show()
@@ -50,7 +55,7 @@ class TaskAdapter(
                     titleDialog = fragment.getString(R.string.deseja_remover),
                     titleButton = fragment.getString(R.string.confirmar),
                     message = fragment.getString(R.string.aperte_confirmar_remover_tarefa),
-                    onClick ={
+                    onClick = {
                         callback(task)
                     }
                 )
@@ -62,8 +67,7 @@ class TaskAdapter(
             }
 
             SELECTED_EDIT -> {
-                Toast.makeText(context, "Edit " + task.description, Toast.LENGTH_SHORT).show()
-
+                callback(task)
             }
 
             SELECTED_NEXT -> {

@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.task.R
 import com.example.task.data.model.StatusTask
 import com.example.task.data.model.Task
@@ -30,6 +32,9 @@ class FormTaskFragment : Fragment() {
     private lateinit var reference: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
+    private val args: FormTaskFragmentArgs by navArgs()
+    private val viewModel: TaskViewModel by activityViewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +49,17 @@ class FormTaskFragment : Fragment() {
         reference = Firebase.database.reference
         auth = Firebase.auth
         initToolbar(binding.toolbar)
+        getArgs()
         initListeners()
+    }
+
+    private fun getArgs() {
+        args.task.let { task ->
+            if (task != null) {
+                this.task = task
+                configTask()
+            }
+        }
     }
 
     private fun initListeners() {
@@ -61,6 +76,23 @@ class FormTaskFragment : Fragment() {
         }
     }
 
+    private fun configTask() {
+        isNewTask = false
+        statusTask = task.status
+        binding.titleScreenFormTask.text = getString(R.string.editando_task)
+        binding.editTextDescription.setText(task.description)
+        setStatus()
+    }
+
+    private fun setStatus() {
+        val id = when (task.status) {
+            StatusTask.TODO -> R.id.radioButtonTodo
+            StatusTask.DOING -> R.id.radioButtonDoing
+            else -> R.id.radioButtonDone
+        }
+        binding.radioGroup.check(id)
+    }
+
     private fun validateData() {
         val descricao = binding.editTextDescription.text.toString()
         if (descricao.isEmpty()) {
@@ -68,8 +100,10 @@ class FormTaskFragment : Fragment() {
             showBottomSheet(message = getString(R.string.descricao_obrigatorio))
         } else {
             binding.progressBar.isVisible = true
-            if (isNewTask) task = Task()
-            task.id = reference.database.reference.push().key ?: ""
+            if (isNewTask) {
+                task = Task()
+                task.id = reference.database.reference.push().key ?: ""
+            }
             task.description = descricao
             task.status = statusTask
             saveTask()
@@ -83,15 +117,14 @@ class FormTaskFragment : Fragment() {
             .child(task.id)
             .setValue(task).addOnCompleteListener { result ->
                 if (result.isSuccessful) {
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.salvo_sucesso),
-                        Toast.LENGTH_SHORT
-                    ).show()
                     if (isNewTask) {
+                        showToast(getString(R.string.salvo_sucesso))
                         findNavController().popBackStack()
                     } else {
+                        viewModel.updateTask(task)
+                        showToast(getString(R.string.atualizada_sucesso))
                         binding.progressBar.isVisible = false
+                        findNavController().popBackStack()
                     }
                 } else {
                     binding.progressBar.isVisible = false
@@ -101,6 +134,9 @@ class FormTaskFragment : Fragment() {
 
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
